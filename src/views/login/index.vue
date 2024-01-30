@@ -1,0 +1,221 @@
+<template>
+  <div class="login_container">
+    <div class="copy_right">
+      <span>
+        Copyright©2024-9999. 保留所有权利。联系我们：1467788588@qq.com。
+      </span>
+    </div>
+    <div class="login_container_item">
+      <el-row style="width: 100%; height: 100%">
+        <el-col :span="14" :xs="0" class="row_left"></el-col>
+        <el-col :span="10" :xs="24" class="row_right">
+          <el-row class="row_logo">
+            <SvgIcon name="feiji" width="30" height="30"></SvgIcon>
+            <SvgIcon name="W" width="30" height="30"></SvgIcon>
+            <SvgIcon name="E" width="30" height="30"></SvgIcon>
+            <SvgIcon name="L" width="30" height="30"></SvgIcon>
+            <SvgIcon name="C" width="30" height="30"></SvgIcon>
+            <SvgIcon name="O" width="30" height="30"></SvgIcon>
+            <SvgIcon name="M" width="30" height="30"></SvgIcon>
+          </el-row>
+          <!--          <el-row class="row_title">Hello,欢迎使用HOGZ!</el-row>-->
+          <!--表单部分-->
+          <el-row class="form_row">
+            <el-form
+              :model="loginForm"
+              ref="formRef"
+              :rules="rules"
+              style="width: 100%; padding: 30px"
+            >
+              <el-form-item prop="userName">
+                <!--                <SvgIcon name="zhanghao" width="22" height="22"></SvgIcon>-->
+                <el-input
+                  v-model="loginForm.username"
+                  :prefix-icon="User"
+                  clearable
+                  placeholder="请输入用户名"
+                ></el-input>
+              </el-form-item>
+              <el-form-item prop="passWord">
+                <!--                <SvgIcon name="mima" width="22" height="22"></SvgIcon>-->
+                <el-input
+                  :prefix-icon="Lock"
+                  v-model="loginForm.password"
+                  type="password"
+                  show-password
+                  placeholder="密码包含数字母、数字，长度8~12位"
+                ></el-input>
+              </el-form-item>
+              <el-form-item>
+                <el-button
+                  :loading="loading"
+                  @click="onBtnLogin"
+                  type="primary"
+                  style="width: 100%; height: 50px"
+                >
+                  登录
+                </el-button>
+              </el-form-item>
+            </el-form>
+          </el-row>
+        </el-col>
+      </el-row>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { User, Lock } from '@element-plus/icons-vue'
+import userStore from '@/store/modules/user.ts'
+import { reactive, ref } from 'vue'
+import { useRouter } from 'vue-router'
+import {
+  ElMessage,
+  ElNotification,
+  FormInstance,
+  FormRules,
+} from 'element-plus'
+import { getGreeting } from '@/utils'
+import { userLogin } from '@/api/user'
+import { SET_TOKEN } from '@/utils/token.ts'
+// 收集表单数据
+type FormType = {
+  username: string
+  password: string
+}
+let loginForm = ref<FormType>({
+  username: '',
+  password: '',
+})
+let formRef = ref<FormInstance>() //表单实例
+// 自定义校验规则
+const validateUserName = (rule: any, value: any, callback: any) => {
+  if (value.length >= 5) {
+    callback() //放行
+  } else {
+    callback(new Error('账号长度至少五位'))
+  }
+}
+const validatePassWord = (rule: any, value: any, callback: any) => {
+  if (value.length >= 6) {
+    callback() //放行
+  } else {
+    callback(new Error('密码长度至少六位'))
+  }
+}
+let rules = reactive<FormRules>({
+  username: [
+    {
+      validator: validateUserName,
+      trigger: 'blur',
+    },
+  ],
+  password: [
+    {
+      validator: validatePassWord,
+      trigger: 'blur',
+    },
+  ],
+})
+
+let router = useRouter()
+let useUserStore = userStore()
+// 登陆按钮loading效果
+let loading = ref<boolean>(false)
+
+const onBtnLogin = () => {
+  if (!formRef.value) return
+  formRef.value?.validate(async (isValid) => {
+    if (isValid) {
+      loading.value = true
+      let res = await useUserStore.userLogin(loginForm.value)
+      if (res === 'pass') {
+        loading.value = false
+        await router.push('/')
+        ElNotification({
+          title: getGreeting(),
+          message: `欢迎回来，${loginForm.value.username}`,
+          type: 'success',
+          duration: 3000,
+        })
+      } else {
+        loading.value = false
+        ElMessage.error('error')
+      }
+    } else {
+      return
+    }
+  })
+}
+</script>
+
+<style scoped lang="scss">
+.login_container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  background-color: #ebf0ff;
+  .copy_right {
+    width: 100%;
+    height: 80px;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    bottom: 0;
+    color: #999999;
+  }
+  .login_container_item {
+    width: 80%;
+    height: 70%;
+    border-radius: 20px;
+    overflow: hidden;
+    .row_left {
+      background-image: url('@/assets/login.webp');
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-color: #47168a;
+      height: 100%;
+    }
+    .row_right {
+      background-color: #ffffff;
+      height: 100%;
+      position: relative;
+    }
+    .row_logo {
+      //background-color: #14dc43;
+      height: 30%;
+      position: absolute;
+      top: 20%;
+      padding: 30px;
+    }
+    .form_row {
+      //background-color: crimson;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
+
+::v-deep .el-input__inner {
+  height: 58px;
+}
+
+::v-deep(.el-input .el-input__icon) {
+  width: 20px;
+}
+
+:deep(.el-icon svg) {
+  height: 20px;
+  width: 20px;
+  font-size: 18px;
+  font-weight: bolder;
+  color: #2e1256;
+}
+</style>
