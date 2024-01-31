@@ -9,6 +9,7 @@ import { getUserInfo, userLogout } from '@/api/user'
 
 // 全局前置守卫
 router.beforeEach(async (to: any, from: any, next: any) => {
+  console.log('切换路由')
   const useUserStore = userStore(pinia)
   const token = useUserStore.token
   const name = useUserStore.userInfo.name

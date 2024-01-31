@@ -60,7 +60,7 @@ let menuList = useUserStore.menuRoutes
 let getRouteInfo = useRoute()
 let activePath = ref<string>()
 activePath.value = getRouteInfo.fullPath //激活菜单
-console.log('getRouteInfo', getRouteInfo)
+// console.log('getRouteInfo', getRouteInfo)
 // 从仓库获取是否折叠tag值
 let useSettingStore = settingStore()
 let refreshFlag = ref<boolean>(true)
