@@ -25,6 +25,11 @@ import {
   getPermissionResponse,
   setPermissionRequest,
   setPermissionResponse,
+  menuDeleteResponse,
+  menuAddResponse,
+  menuAddRequest,
+  menuUpdateRequest,
+  menuUpdateResponse,
 } from '@/api/permission/interface.ts'
 /**
  * 获取管理用户列表
@@ -118,12 +123,6 @@ export const roleDelete = (id: number) =>
   request.delete<null, roleDeleteResponse>(`/admin/acl/role/remove/${id}`)
 
 /**
- * 获取权限树形结构设计
- * **/
-export const getPermissionData = () =>
-  request.get<null, getPermissionResponse>('/admin/acl/permission')
-
-/**
  * 根据角色获取权限树形结构设计
  * **/
 export const getPermissionDataById = (roleId: number) =>
@@ -139,3 +138,33 @@ export const setPermissionById = (data: setPermissionRequest) =>
     `/admin/acl/permission/doAssign?roleId=${data.roleId}&permissionId=${data.permissionId}`,
     data
   )
+
+/**
+ * 获取权限树形结构设计
+ * **/
+export const getPermissionData = () =>
+  request.get<null, getPermissionResponse>('/admin/acl/permission')
+
+/**
+ * 增加菜单
+ * **/
+export const menuAdd = (data: any) =>
+  request.post<menuAddRequest, menuAddResponse>(
+    '/admin/acl/permission/save',
+    data
+  )
+
+/**
+ * 菜单修改
+ * **/
+export const menuUpdate = (data: any) =>
+  request.put<menuUpdateRequest, menuUpdateResponse>(
+    '/admin/acl/permission/update',
+    data
+  )
+
+/**
+ * 删除菜单
+ * **/
+export const menuDelete = (id: number) =>
+  request.delete<null, menuDeleteResponse>(`/admin/acl/permission/remove/${id}`)

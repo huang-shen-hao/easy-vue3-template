@@ -106,7 +106,8 @@ watch(
         position: sticky;
         top: 0;
         left: 0;
-        background-color: beige;
+        background-color: #e9eff5;
+        z-index: 99; //tabBar不被底部内容遮挡
       }
       .route_container {
         width: 100%;

@@ -7,8 +7,8 @@
     </div>
     <div class="login_container_item">
       <el-row style="width: 100%; height: 100%">
-        <el-col :span="14" :xs="0" class="row_left"></el-col>
-        <el-col :span="10" :xs="24" class="row_right">
+        <el-col :span="12" :xs="0" class="row_left"></el-col>
+        <el-col :span="12" :xs="24" class="row_right">
           <el-row class="row_logo">
             <SvgIcon name="feiji" width="30" height="30"></SvgIcon>
             <SvgIcon name="W" width="30" height="30"></SvgIcon>
@@ -18,7 +18,6 @@
             <SvgIcon name="O" width="30" height="30"></SvgIcon>
             <SvgIcon name="M" width="30" height="30"></SvgIcon>
           </el-row>
-          <!--          <el-row class="row_title">Hello,欢迎使用HOGZ!</el-row>-->
           <!--表单部分-->
           <el-row class="form_row">
             <el-form
@@ -28,30 +27,36 @@
               style="width: 100%; padding: 30px"
             >
               <el-form-item prop="userName">
-                <!--                <SvgIcon name="zhanghao" width="22" height="22"></SvgIcon>-->
                 <el-input
+                  class="input_container"
                   v-model="loginForm.username"
-                  :prefix-icon="User"
                   clearable
                   placeholder="请输入用户名"
-                ></el-input>
+                >
+                  <template #prefix>
+                    <SvgIcon name="zhanghao" width="22" height="22"></SvgIcon>
+                  </template>
+                </el-input>
               </el-form-item>
               <el-form-item prop="passWord">
-                <!--                <SvgIcon name="mima" width="22" height="22"></SvgIcon>-->
                 <el-input
-                  :prefix-icon="Lock"
+                  class="input_container"
                   v-model="loginForm.password"
                   type="password"
                   show-password
                   placeholder="密码包含数字母、数字，长度8~12位"
-                ></el-input>
+                >
+                  <template #prefix>
+                    <SvgIcon name="mima" width="22" height="22"></SvgIcon>
+                  </template>
+                </el-input>
               </el-form-item>
               <el-form-item>
                 <el-button
                   :loading="loading"
                   @click="onBtnLogin"
                   type="primary"
-                  style="width: 100%; height: 50px"
+                  style="width: 100%; height: 50px; background-color: #0170fc"
                 >
                   登录
                 </el-button>
@@ -65,7 +70,6 @@
 </template>
 
 <script setup lang="ts">
-import { User, Lock } from '@element-plus/icons-vue'
 import userStore from '@/store/modules/user.ts'
 import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
@@ -76,8 +80,6 @@ import {
   FormRules,
 } from 'element-plus'
 import { getGreeting } from '@/utils'
-import { userLogin } from '@/api/user'
-import { SET_TOKEN } from '@/utils/token.ts'
 // 收集表单数据
 type FormType = {
   username: string
@@ -157,7 +159,10 @@ const onBtnLogin = () => {
   align-items: center;
   width: 100%;
   height: 100vh;
-  background-color: #ebf0ff;
+  padding: 50px;
+  background-image: url('@/assets/back_login.png');
+  background-repeat: no-repeat;
+  background-size: cover;
   .copy_right {
     width: 100%;
     height: 80px;
@@ -169,36 +174,42 @@ const onBtnLogin = () => {
     color: #999999;
   }
   .login_container_item {
-    width: 80%;
-    height: 70%;
-    border-radius: 20px;
+    width: 1000px;
+    height: 448px;
+    border-radius: 8px;
+    background-color: white;
     overflow: hidden;
     .row_left {
-      background-image: url('@/assets/login.webp');
-      background-size: contain;
-      background-position: center;
+      background-image: url('@/assets/left_login.png');
+      background-size: cover;
       background-repeat: no-repeat;
-      background-color: #47168a;
-      height: 100%;
+      background-position: center;
+      width: 500px;
+      height: 448px;
     }
     .row_right {
-      background-color: #ffffff;
-      height: 100%;
+      width: 500px;
+      height: 448px;
       position: relative;
-    }
-    .row_logo {
-      //background-color: #14dc43;
-      height: 30%;
-      position: absolute;
-      top: 20%;
-      padding: 30px;
-    }
-    .form_row {
-      //background-color: crimson;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      .row_logo {
+        height: 200px;
+        position: absolute;
+        top: 20px;
+        padding: 30px;
+      }
+      .form_row {
+        //background-color: crimson;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        ::v-deep .input_container .el-input__wrapper {
+          background-color: #f6f7fb;
+          border: none;
+          box-shadow: none;
+        }
+      }
     }
   }
 }

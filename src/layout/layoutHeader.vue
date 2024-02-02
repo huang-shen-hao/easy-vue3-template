@@ -16,51 +16,81 @@
       </el-row>
     </div>
     <div class="layout_top_right">
-      <p class="title_welcome">
-        您好,{{ getUserStore.userInfo.name || '***' }}!
-      </p>
-      <div class="avatar_container">
-        <el-avatar
-          :size="50"
-          :src="
-            getUserStore.userInfo.avatar
-              ? getUserStore.userInfo.avatar
-              : avatarDefault
-          "
-        />
-      </div>
-
-      <span
-        class="icon_container"
-        style="cursor: pointer"
-        @click="refreshClick"
+      <!--刷新功能-->
+      <el-tooltip placement="bottom" trigger="hover" content="刷新">
+        <span
+          class="icon_container"
+          style="cursor: pointer"
+          @click="refreshClick"
+        >
+          <SvgIcon
+            name="shuaxing"
+            width="26px"
+            height="26px"
+            fill="white"
+          ></SvgIcon>
+        </span>
+      </el-tooltip>
+      <!--暗黑模式切换-->
+      <el-tooltip
+        placement="bottom"
+        trigger="hover"
+        :content="tag ? '明亮模式' : '暗黑模式'"
+        :width="250"
       >
-        <SvgIcon
-          name="shuaxing"
-          width="26px"
-          height="26px"
-          fill="white"
-        ></SvgIcon>
-      </span>
-
-      <span class="icon_container" style="cursor: pointer" @click="fullScreen">
-        <SvgIcon
-          name="quanping"
-          width="24px"
-          height="24px"
-          fill="white"
-        ></SvgIcon>
-      </span>
-
-      <span class="icon_container" style="cursor: pointer" @click="exitClick">
-        <SvgIcon
-          name="tuichudenglu"
-          width="24px"
-          height="24px"
-          fill="white"
-        ></SvgIcon>
-      </span>
+        <span
+          @click="changeMode"
+          class="icon_container"
+          style="cursor: pointer"
+        >
+          <SvgIcon
+            :name="tag ? 'mingliang' : 'heian'"
+            width="24px"
+            height="24px"
+            fill="white"
+          ></SvgIcon>
+        </span>
+      </el-tooltip>
+      <!--全屏功能-->
+      <el-tooltip placement="bottom" trigger="hover" content="全屏切换">
+        <span
+          class="icon_container"
+          style="cursor: pointer"
+          @click="fullScreen"
+        >
+          <SvgIcon
+            name="quanping"
+            width="24px"
+            height="24px"
+            fill="white"
+          ></SvgIcon>
+        </span>
+      </el-tooltip>
+      <!--退出登陆-->
+      <el-tooltip placement="bottom" trigger="hover" content="退出登陆">
+        <span class="icon_container" style="cursor: pointer" @click="exitClick">
+          <SvgIcon
+            name="tuichudenglu"
+            width="24px"
+            height="24px"
+            fill="white"
+          ></SvgIcon>
+        </span>
+      </el-tooltip>
+      <el-divider direction="vertical"></el-divider>
+      <div class="avatar_container">
+        <!--        :src="-->
+        <!--        getUserStore.userInfo.avatar-->
+        <!--        ? getUserStore.userInfo.avatar-->
+        <!--        : avatarDefault-->
+        <!--        "-->
+        <el-avatar :size="50" :src="avatarDefault" />
+        <span style="margin-left: 10px">
+          {{ getUserStore.userInfo.name || '***' }}
+        </span>
+      </div>
     </div>
+    <el-dialog :modal="tag"></el-dialog>
   </div>
 </template>
 
@@ -77,6 +107,7 @@ import { REMOVE_TOKEN } from '@/utils/token.ts'
 import Router from '@/router'
 import { userLogout } from '@/api/user'
 import { ElMessage } from 'element-plus'
+import { ref } from 'vue'
 
 let getUserStore = userStore()
 let getSetStore = settingStore()
@@ -109,13 +140,20 @@ const exitClick = async () => {
 const refreshClick = () => {
   getSetStore.refresh = !getSetStore.refresh
 }
+// 暗黑模式切换实现
+let tag = ref<boolean>(true)
+const changeMode = () => {
+  tag.value = !tag.value
+  let html = document.documentElement
+  !tag.value ? (html.className = 'dark') : (html.className = '')
+}
 </script>
 
 <style scoped lang="scss">
 .layout_top {
   width: 100vw;
   height: $base-header-height;
-  background: linear-gradient(to top, #0f0f4b, #4515bd);
+  background: linear-gradient(to top, #3a3ab6, #35206b);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -136,7 +174,10 @@ const refreshClick = () => {
     display: flex;
     justify-content: center;
     align-items: center;
-    .title_welcome {
+    .avatar_container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       font-weight: bold;
       font-size: 12px;
       color: white;

@@ -197,7 +197,7 @@ export interface permissionTree {
   type: number
   status: null
   level: number
-  children: permissionTree[]
+  children?: permissionTree[]
 }
 
 export interface getPermissionResponse {
@@ -213,6 +213,42 @@ export interface setPermissionRequest {
 }
 
 export interface setPermissionResponse {
+  code: number
+  message: string
+  data: null
+  ok: boolean
+}
+
+export interface menuAddRequest {
+  code: string
+  level: string
+  name: string
+  pid: number
+}
+
+export interface menuAddResponse {
+  code: number
+  message: string
+  data: null
+  ok: boolean
+}
+
+export interface menuDeleteResponse {
+  code: number
+  message: string
+  data: null
+  ok: boolean
+}
+
+export interface menuUpdateRequest {
+  id: number
+  code: string //权限名字
+  level: string //几级菜单
+  name: string
+  pid: number //已有数据菜单ID
+}
+
+export interface menuUpdateResponse {
   code: number
   message: string
   data: null
