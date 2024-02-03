@@ -10,6 +10,7 @@ const userStore = defineStore('User', {
       token: GET_TOKEN(), //用户的唯一标识符
       userInfo: {},
       menuRoutes: constantRoute, //仓库存储生成菜单的路由
+      isLogin: false,
     }
   },
   actions: {
@@ -19,6 +20,7 @@ const userStore = defineStore('User', {
       if (res.code === 200 && res.data) {
         SET_TOKEN(res.data)
         this.token = res.data
+        this.isLogin = true //是否从登陆页进来
         return 'pass'
       } else {
         return 'error'

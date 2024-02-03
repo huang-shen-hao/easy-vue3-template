@@ -1,11 +1,11 @@
 // 封装本地存储
 export const SET_TOKEN = (token: string) => {
-  localStorage.setItem('TOKEN', token)
+  sessionStorage.setItem('TOKEN', token)
 }
 
 export const GET_TOKEN = () => {
-  return localStorage.getItem('TOKEN') || ''
+  return sessionStorage.getItem('TOKEN') || ''
 }
 export const REMOVE_TOKEN = () => {
-  return localStorage.removeItem('TOKEN')
+  return sessionStorage.removeItem('TOKEN')
 }

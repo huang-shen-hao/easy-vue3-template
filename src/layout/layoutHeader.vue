@@ -107,7 +107,7 @@ import { REMOVE_TOKEN } from '@/utils/token.ts'
 import Router from '@/router'
 import { userLogout } from '@/api/user'
 import { ElMessage } from 'element-plus'
-import { ref } from 'vue'
+import { onUnmounted, ref } from 'vue'
 
 let getUserStore = userStore()
 let getSetStore = settingStore()
@@ -136,6 +136,7 @@ const exitClick = async () => {
     ElMessage.error(res.message)
   }
 }
+
 // 刷新实现
 const refreshClick = () => {
   getSetStore.refresh = !getSetStore.refresh
