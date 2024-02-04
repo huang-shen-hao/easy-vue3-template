@@ -70,21 +70,21 @@ export const asyncRoute: RouteRecordRaw[] = [
     path: '/product',
     component: () => import('@/layout/index.vue'),
     name: 'Product', //命名路由
-    meta: { title: '商品管理', hidden: false, icon: 'product' },
+    meta: { title: '智慧人事', hidden: false, icon: 'product' },
     redirect: '/product/brandManagement', //访问一级路由重定向第一个二级路由
     children: [
       {
         path: '/product/brandManagement',
         component: () => import('@/views/product/brandManagement/index.vue'),
         name: 'Trademark', //命名路由
-        meta: { title: '品牌管理', hidden: false, icon: 'pingpaiguanli' },
+        meta: { title: '招聘管理', hidden: false, icon: 'pingpaiguanli' },
       },
       {
         path: '/product/inventoryManagement',
         component: () =>
           import('@/views/product/inventoryManagement/index.vue'),
         name: 'Attr', //命名路由
-        meta: { title: '库存管理', hidden: false, icon: 'kucunguanli' },
+        meta: { title: '假情管理', hidden: false, icon: 'kucunguanli' },
       },
     ],
   },

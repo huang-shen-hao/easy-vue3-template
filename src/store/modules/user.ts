@@ -25,6 +25,7 @@ const userStore = defineStore('User', {
       token: GET_TOKEN(), //用户的唯一标识符
       userInfo: {},
       menuRoutes: constantRoute, //仓库存储生成菜单的路由
+      buttons: [],
     }
   },
   actions: {
@@ -49,6 +50,7 @@ const userStore = defineStore('User', {
           cloneDeep(asyncRoute),
           res.data.routes
         )
+        this.buttons = res.data.buttons || []
         this.menuRoutes = [...constantRoute, ...userRoute, anyRoute]
         // 注册路由
         const arr = [...userRoute, anyRoute]
@@ -62,6 +64,8 @@ const userStore = defineStore('User', {
     userLogOut() {
       this.userInfo = {}
       this.token = ''
+      this.menuRoutes = []
+      this.buttons = []
     },
   },
   getters: {},
