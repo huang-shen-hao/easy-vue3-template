@@ -1,5 +1,5 @@
 <template>
-  <div style="height: 1000px; background-color: #14dc43">
+  <div class="home_container">
     {{ useUserStore.userInfo.routes }}
   </div>
 </template>

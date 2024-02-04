@@ -19,7 +19,13 @@
     <el-row class="row_bottom">
       <el-card>
         <el-row>
-          <el-button type="primary" @click="onBtnAdd(-1)">添加</el-button>
+          <el-button
+            type="primary"
+            v-if="hasBtnPermission('btn.User.add')"
+            @click="onBtnAdd(-1)"
+          >
+            添加
+          </el-button>
           <el-button type="success" @click="onBatchDelete">批量删除</el-button>
         </el-row>
         <el-row>
@@ -147,6 +153,7 @@ import roleDrawer from '@/views/permission/userManagement/roleDrawer.vue'
 import userStore from '@/store/modules/user.ts'
 import { Delete, Edit, User } from '@element-plus/icons-vue'
 import { ElMessage, ElMessageBox, FormInstance } from 'element-plus'
+import { hasBtnPermission } from '@/utils'
 let dataList = ref<UserListResponse[]>([])
 const getList = async (page: number) => {
   searchForm.value.page = page

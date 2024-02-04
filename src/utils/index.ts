@@ -1,3 +1,7 @@
+import userStore from '@/store/modules/user.ts'
+import pinia from '@/store'
+import { isArray } from 'lodash'
+
 export const getGreeting = () => {
   const currentTime = new Date().getHours()
   if (currentTime <= 9) {
@@ -9,4 +13,12 @@ export const getGreeting = () => {
   } else {
     return '晚上好!'
   }
+}
+
+const useUserStore = userStore(pinia)
+export const hasBtnPermission = (btnName: string) => {
+  const btnArr = useUserStore.buttons
+  // console.log('ooooo', btnArr)
+  // @ts-ignore
+  return Array.isArray(btnArr) && btnArr.includes(btnName)
 }
