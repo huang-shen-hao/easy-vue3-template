@@ -18,6 +18,7 @@
     "echarts": "^5.4.3",
     "echarts-liquidfill": "^3.1.0",
     "element-plus": "^2.5.3",
+    "lodash": "^4.17.21",
     "nprogress": "^0.2.0",
     "pinia": "^2.1.7",
     "progress": "^2.0.3",

@@ -6,6 +6,7 @@ import { getUserInfo, userLogin } from '@/api/user'
 import { GET_TOKEN, SET_TOKEN } from '@/utils/token.ts'
 import { ElMessage } from 'element-plus'
 import router from '@/router'
+import { cloneDeep } from 'lodash'
 
 // 过滤异步路由
 const filterAsyncRoute = (asyncRoute: any, routes: any) => {
@@ -44,7 +45,10 @@ const userStore = defineStore('User', {
       if (res.code === 200 && res.data) {
         this.userInfo = res.data
         // console.log('存储', res.data.routes)
-        const userRoute = filterAsyncRoute(asyncRoute, res.data.routes)
+        const userRoute = filterAsyncRoute(
+          cloneDeep(asyncRoute),
+          res.data.routes
+        )
         this.menuRoutes = [...constantRoute, ...userRoute, anyRoute]
         // 注册路由
         const arr = [...userRoute, anyRoute]

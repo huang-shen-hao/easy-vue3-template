@@ -35,8 +35,9 @@ router.beforeEach(async (to: any, from: any, next: any) => {
         // 重新发送请求
         const res = await getUserInfo()
         if (res.code === 200) {
-          useUserStore.setUserInfo(res.data) //存到pinia仓库
-          next()
+          await useUserStore.setUserInfo() //存到pinia仓库
+          // 确保异步路由组件加载完毕
+          next({ ...to, replace: true })
           NProgress.done()
         }
       }
