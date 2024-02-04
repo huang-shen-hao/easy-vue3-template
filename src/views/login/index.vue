@@ -17,6 +17,7 @@
             <SvgIcon name="C" width="30" height="30"></SvgIcon>
             <SvgIcon name="O" width="30" height="30"></SvgIcon>
             <SvgIcon name="M" width="30" height="30"></SvgIcon>
+            <SvgIcon name="E" width="30" height="30"></SvgIcon>
           </el-row>
           <!--表单部分-->
           <el-row class="form_row">
@@ -71,7 +72,7 @@
 
 <script setup lang="ts">
 import userStore from '@/store/modules/user.ts'
-import { onMounted, reactive, ref } from 'vue'
+import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import {
   ElMessage,
@@ -80,7 +81,6 @@ import {
   FormRules,
 } from 'element-plus'
 import { getGreeting } from '@/utils'
-import { getUserInfo } from '@/api/user'
 // 收集表单数据
 type FormType = {
   username: string
@@ -127,15 +127,6 @@ let useUserStore = userStore()
 let loading = ref<boolean>(false)
 
 // 获取用户基本信息
-const getInfo = async () => {
-  let res = await getUserInfo()
-  if (res.code === 200 && res.data) {
-    useUserStore.setUserInfo(res.data)
-  } else {
-    ElMessage.error(res.message)
-  }
-  console.log('home', useUserStore)
-}
 
 const onBtnLogin = () => {
   if (!formRef.value) return
@@ -145,7 +136,8 @@ const onBtnLogin = () => {
       let res = await useUserStore.userLogin(loginForm.value)
       if (res === 'pass') {
         loading.value = false
-        await getInfo()
+        // 存储信息
+        await useUserStore.setUserInfo()
         await router.push('/')
         ElNotification({
           title: getGreeting(),
@@ -180,9 +172,7 @@ const onBtnLogin = () => {
     width: 100%;
     height: 80px;
     position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    text-align: center;
     bottom: 0;
     color: #999999;
   }

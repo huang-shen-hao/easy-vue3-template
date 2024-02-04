@@ -16,7 +16,7 @@
             text-color="white"
             :collapse="useSettingStore.isFlod"
           >
-            <LayoutMenu :menuList="menuList"></LayoutMenu>
+            <LayoutMenu :menuList="useUserStore.menuRoutes"></LayoutMenu>
           </el-menu>
         </el-scrollbar>
       </div>
@@ -54,8 +54,7 @@ import { useRoute } from 'vue-router'
 import { nextTick, ref, watch } from 'vue'
 import settingStore from '@/store/modules/setting.ts'
 let useUserStore = userStore()
-let menuList = useUserStore.menuRoutes
-
+console.log('route', useUserStore.menuRoutes)
 // 获取路由对象 路径就是active
 let getRouteInfo = useRoute()
 let activePath = ref<string>()

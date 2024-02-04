@@ -44,9 +44,12 @@
 </template>
 
 <script setup lang="ts">
+import { RouteRecordRaw } from 'vue-router'
+
 const props = defineProps({
   menuList: {
     required: true,
+    type: [] as RouteRecordRaw[],
   },
 })
 </script>

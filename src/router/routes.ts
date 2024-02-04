@@ -1,5 +1,6 @@
 import { RouteRecordRaw } from 'vue-router'
 
+// 常量路由
 export const constantRoute: RouteRecordRaw[] = [
   {
     path: '/login',
@@ -13,13 +14,7 @@ export const constantRoute: RouteRecordRaw[] = [
     name: '404', //命名路由
     meta: { title: '404', hidden: true, icon: 'shouye' },
   },
-  {
-    // 重定向404页面
-    path: '/:pathMatch(.*)*',
-    redirect: '/404',
-    name: 'Any',
-    meta: { title: 'any', hidden: true, icon: 'shouye' },
-  },
+
   {
     path: '/',
     component: () => import('@/layout/index.vue'),
@@ -40,6 +35,10 @@ export const constantRoute: RouteRecordRaw[] = [
     name: 'dataScreen', //命名路由
     meta: { title: '数据大屏', hidden: false, icon: 'shujudaping' },
   },
+]
+
+// 异步路由
+export const asyncRoute: RouteRecordRaw[] = [
   {
     path: '/permissions',
     component: () => import('@/layout/index.vue'),
@@ -50,7 +49,7 @@ export const constantRoute: RouteRecordRaw[] = [
       {
         path: '/permissions/userManagement',
         component: () => import('@/views/permission/userManagement/index.vue'),
-        name: 'Acl', //命名路由
+        name: 'User', //命名路由
         meta: { title: '用户管理', hidden: false, icon: 'yonghuguanli' },
       },
       {
@@ -70,7 +69,7 @@ export const constantRoute: RouteRecordRaw[] = [
   {
     path: '/product',
     component: () => import('@/layout/index.vue'),
-    name: 'Goods', //命名路由
+    name: 'Product', //命名路由
     meta: { title: '商品管理', hidden: false, icon: 'product' },
     redirect: '/product/brandManagement', //访问一级路由重定向第一个二级路由
     children: [
@@ -90,3 +89,11 @@ export const constantRoute: RouteRecordRaw[] = [
     ],
   },
 ]
+
+export const anyRoute: RouteRecordRaw = {
+  // 重定向404页面
+  path: '/:pathMatch(.*)*',
+  redirect: '/404',
+  name: 'Any',
+  meta: { title: 'any', hidden: true, icon: 'shouye' },
+}
