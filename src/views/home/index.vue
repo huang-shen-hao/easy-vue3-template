@@ -1,10 +1,10 @@
 <template>
   <div class="container">
     <el-row style="height: 50%">
-      <el-col :span="12" :xs="24">
+      <el-col :span="12">
         <div class="head_left"></div>
       </el-col>
-      <el-col :span="12" :xs="24">
+      <el-col :span="12">
         <div class="head_right"></div>
       </el-col>
     </el-row>
@@ -14,10 +14,10 @@
       </el-col>
     </el-row>
     <el-row style="height: 30%">
-      <el-col :span="12" :xs="24">
+      <el-col :span="12">
         <div class="bottom_left"></div>
       </el-col>
-      <el-col :span="12" :xs="24">
+      <el-col :span="12">
         <div class="bottom_right"></div>
       </el-col>
     </el-row>
