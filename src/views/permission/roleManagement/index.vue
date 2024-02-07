@@ -23,19 +23,31 @@
         <el-row>
           <el-table :data="roleList" border style="width: 100%">
             <el-table-column type="index" />
-            <el-table-column label="id" prop="id" />
-            <el-table-column align="center" label="角色名称" prop="roleName" />
+            <el-table-column
+              align="center"
+              label="id"
+              prop="id"
+              min-width="60px"
+            />
+            <el-table-column
+              align="center"
+              label="角色名称"
+              prop="roleName"
+              min-width="90px"
+            />
             <el-table-column
               align="center"
               label="创建时间"
               prop="createTime"
+              min-width="130px"
             />
             <el-table-column
               align="center"
               label="更新时间"
               prop="updateTime"
+              min-width="130px"
             />
-            <el-table-column align="center" label="操作">
+            <el-table-column align="center" label="操作" min-width="200px">
               <template v-slot:default="{ row }">
                 <el-button
                   type="primary"

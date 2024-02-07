@@ -9,10 +9,14 @@
           border
           default-expand-all
         >
-          <el-table-column prop="name" label="名称" />
-          <el-table-column prop="code" label="权限值" />
-          <el-table-column prop="createTime" label="修改时间" />
-          <el-table-column label="操作">
+          <el-table-column prop="name" label="名称" min-width="90px" />
+          <el-table-column prop="code" label="权限值" min-width="100px" />
+          <el-table-column
+            prop="createTime"
+            label="修改时间"
+            min-width="120px"
+          />
+          <el-table-column label="操作" min-width="200px">
             <template v-slot:default="{ row }">
               <el-button
                 size="small"

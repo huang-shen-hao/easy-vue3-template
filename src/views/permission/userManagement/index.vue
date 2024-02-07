@@ -40,7 +40,7 @@
               align="center"
               type="selection"
             ></el-table-column>
-            <el-table-column align="center" type="index"></el-table-column>
+            <el-table-column align="center" type="index" />
             <el-table-column
               align="center"
               prop="id"
@@ -52,21 +52,21 @@
               align="center"
               prop="username"
               label="用户名字"
-              min-width="100"
+              min-width="120px"
               show-overflow-tooltip
             />
             <el-table-column
               align="center"
               prop="name"
               label="用户名称"
-              min-width="100"
+              min-width="120px"
               show-overflow-tooltip
             />
             <el-table-column
               align="center"
               prop="roleName"
               label="角色名称"
-              width="120"
+              min-width="120px"
               show-overflow-tooltip
             />
             <el-table-column
@@ -74,18 +74,20 @@
               prop="createTime"
               label="创建时间"
               show-overflow-tooltip
+              min-width="160px"
             />
             <el-table-column
               align="center"
               prop="updateTime"
               label="修改时间"
               show-overflow-tooltip
+              min-width="160px"
             />
             <el-table-column
               fixed="right"
               align="center"
               label="操作"
-              min-width="150"
+              min-width="300px"
             >
               <template v-slot:default="{ row }">
                 <el-button
