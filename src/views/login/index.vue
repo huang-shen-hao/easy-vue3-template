@@ -1,9 +1,9 @@
 <template>
   <div class="login_container">
     <div class="copy_right">
-      <span>
+      <div style="position: fixed; bottom: 10px; width: 100%">
         Copyright©2024-9999. 保留所有权利。联系我们：1467788588@qq.com。
-      </span>
+      </div>
     </div>
     <div class="login_container_item">
       <el-row style="width: 100%; height: 100%">
